@@ -42,5 +42,7 @@
 			}
 		}
 	},
-	"dependencies": {}
+	"dependencies": {
+		"eslint-config-airbnb": "^18.0.1"
+	}
 }

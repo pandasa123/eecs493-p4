@@ -57,7 +57,6 @@ let vcomp = new Vue({
 	},
 	beforeMount() {
 		this.fetchInterestingSet(0)
-		console.log(this.currentInterestingSet)
 	},
 	mounted() {
 		window.addEventListener('keypress', e => {
@@ -65,6 +64,9 @@ let vcomp = new Vue({
 			if (keypress === '3') {
 				this.currentInterestingIndex += 1
 				this.fetchInterestingSet(this.currentInterestingIndex)
+			} else if (keypress === '1') {
+				this.currentInterestingIndex = 0
+				this.fetchInterestingSet(0)
 			}
 		})
 	}

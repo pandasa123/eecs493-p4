@@ -3,6 +3,7 @@ const API_KEY = '3b81c2616409f777463ed01d9c27105f'
 let vcomp = new Vue({
 	el: '#container',
 	data: {
+		currentDate: '',
 		currentInterestingIndex: 0,
 		currentInterestingSet: [],
 		imgSet: [],
@@ -18,6 +19,8 @@ let vcomp = new Vue({
 				.toJSON()
 				.slice(0, 10)
 				.replace(/-/g, '-')
+
+			this.currentDate = textDate
 
 			let url =
 				'https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=' +
@@ -55,6 +58,15 @@ let vcomp = new Vue({
 	beforeMount() {
 		this.fetchInterestingSet(0)
 		console.log(this.currentInterestingSet)
+	},
+	mounted() {
+		window.addEventListener('keypress', e => {
+			let keypress = String.fromCharCode(e.keyCode)
+			if (keypress === '3') {
+				this.currentInterestingIndex += 1
+				this.fetchInterestingSet(this.currentInterestingIndex)
+			}
+		})
 	}
 })
 

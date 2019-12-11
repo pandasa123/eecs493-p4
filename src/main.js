@@ -53,6 +53,26 @@ let vcomp = new Vue({
 					})
 				})
 				.catch(err => console.log(err))
+		},
+		getCurrentActive() {
+			this.currentCarouselIndex = parseInt(
+				document
+					.getElementsByClassName('carousel-inner')[0]
+					.getElementsByClassName('active')[0]
+					.querySelector('img')
+					.getAttribute('bs-index')
+			)
+			return this.currentCarouselIndex
+		},
+		removeAddActive() {
+			document
+				.getElementsByClassName('carousel-inner')[0]
+				.getElementsByClassName('active')[0]
+				.classList.remove('active')
+			document
+				.getElementsByClassName('carousel-inner')[0]
+				.getElementsByClassName('item')[0]
+				.classList.add('active')
 		}
 	},
 	beforeMount() {
@@ -67,39 +87,8 @@ let vcomp = new Vue({
 			} else if (keypress === '1') {
 				this.currentInterestingIndex = 0
 				this.fetchInterestingSet(0)
+				this.removeAddActive()
 			}
 		})
 	}
 })
-
-const loadImagesIntoCarousel = async daysFromYesterday => {
-	let res = fetchInterestingSet(daysFromYesterday)
-	console.log(res)
-	$.each(currentInterestingSet, (i, photo) => {
-		let src =
-			'https://farm' +
-			photo.farm +
-			'.staticflickr.com/' +
-			photo.server +
-			'/' +
-			photo.id +
-			'_' +
-			photo.secret +
-			'_c.jpg'
-		let active
-		if (i === 0) {
-			active = ' active'
-		} else {
-			active = ''
-		}
-		// Create the img html and set the src attribute to our URL
-		let imgHtml = $('<img/>').attr('src', src)
-		// Create the .item div and insert the img html into it
-		// This is better done in css
-		let itemDivHtml = $(
-			"<div class='item" + active + "' width='460' height='345'/>"
-		).append(imgHtml)
-		// Insert the .item div into the .carousel-inner div
-		$('.carousel-inner').append(itemDivHtml)
-	})
-}

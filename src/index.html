@@ -44,7 +44,12 @@
 						v-for="(img, index) in imgSet"
 						v-bind:class="{'item active': index === 0, 'item': true}"
 					>
-						<img v-bind:src="img" width="460" height="345" />
+						<img
+							v-bind:src="img"
+							width="460"
+							height="345"
+							v-bind:bs-index="index"
+						/>
 					</div>
 				</div>
 
